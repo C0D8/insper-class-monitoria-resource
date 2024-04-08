@@ -6,5 +6,6 @@ CREATE TABLE monitoria
     dt_start character varying(256),
     duration character varying(256),
     id_professor character varying(36) NOT NULL,
+    departamento character varying(36) NOT NULL,
     CONSTRAINT monitoria_pkey PRIMARY KEY (id_monitoria)
 );

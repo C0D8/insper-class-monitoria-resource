@@ -9,9 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.google.common.util.concurrent.Monitor;
+
 import insper.classroom.monitoria.Monitoria;
 import insper.classroom.monitoria.MonitoriaParser;
 import insper.classroom.monitoria.CreateMonitoriaOut;
+import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 public class MonitoriaResource implements MonitoriaController {
@@ -71,6 +75,24 @@ public class MonitoriaResource implements MonitoriaController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(MonitoriaParser.to(monitoria));
+    }
+
+
+    @Override
+    public ResponseEntity<List<CreateMonitoriaOut>> getByDepartamento(String id) {
+       // lista de aulas por departamento
+        List<Monitoria> monitorias = monitoriaService.readByDepartamento(id);
+        if (monitorias == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<CreateMonitoriaOut> monitoriasOut = new ArrayList<>(); // Initialize monitoriasOut as an empty list
+
+        for (Monitoria monitoria : monitorias) {
+            //append monitoria apos parsear 
+            monitoriasOut.add(MonitoriaParser.to(monitoria));
+        }
+        return ResponseEntity.ok(monitoriasOut);
     }
 
 

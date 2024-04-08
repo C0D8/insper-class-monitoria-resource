@@ -9,6 +9,7 @@ public class MonitoriaParser {
                 .descricao(in.descricao())
                 .data(in.data())
                 .duracao(in.duracao())
+                .departamento(in.departamento())
                 .build();
     }
     

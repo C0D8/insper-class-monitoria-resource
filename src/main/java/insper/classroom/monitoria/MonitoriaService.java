@@ -7,6 +7,8 @@ package insper.classroom.monitoria;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.NonNull;
 
@@ -24,6 +26,11 @@ public class MonitoriaService {
 
     public Monitoria read(@NonNull String id) {
         return monitoriaRepository.findById(id).map(MonitoriaModel::to).orElse(null);
+    }
+
+
+    public List<Monitoria> readByDepartamento(@NonNull String id_departamento) {
+        return monitoriaRepository.findByDepartamento(id_departamento).stream().map(MonitoriaModel::to).collect(Collectors.toList());
     }
 
     // public Account read(@NonNull String id) {

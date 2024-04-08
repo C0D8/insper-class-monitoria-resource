@@ -43,6 +43,9 @@ public class MonitoriaModel {
     @Column(name = "id_professor")
     private String id_professor;
 
+    @Column(name = "departamento")
+    private String departamento;
+
 
 
 
@@ -52,6 +55,7 @@ public class MonitoriaModel {
         this.descricao = o.descricao();
         this.data = o.data();
         this.duracao = o.duracao();
+        this.departamento = o.departamento();
         this.id_professor = o.id_professor();
 
     }
@@ -64,6 +68,7 @@ public class MonitoriaModel {
                 .data(data)
                 .duracao(duracao)
                 .id_professor(id_professor)
+                .departamento(departamento)
                 .build();
     }
 
