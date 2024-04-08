@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import insper.classroom.monitoria.Monitoria;
 import insper.classroom.monitoria.MonitoriaParser;
+import insper.classroom.monitoria.CreateMonitoriaOut;
 
 @RestController
 public class MonitoriaResource implements MonitoriaController {
@@ -64,12 +65,12 @@ public class MonitoriaResource implements MonitoriaController {
     }
 
     @Override
-    public ResponseEntity<Monitoria> get(String id) {
+    public ResponseEntity<CreateMonitoriaOut> get(String id) {
         Monitoria monitoria = monitoriaService.read(id);
         if (monitoria == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(monitoria);
+        return ResponseEntity.ok(MonitoriaParser.to(monitoria));
     }
 
 
