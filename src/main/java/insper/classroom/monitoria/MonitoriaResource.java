@@ -17,7 +17,11 @@ import insper.classroom.monitoria.CreateMonitoriaOut;
 import java.util.List;
 import java.util.ArrayList;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
+@Tag(name = "Monitoria Resource", description = "Monitoria Resource")
 public class MonitoriaResource implements MonitoriaController {
 
     @Autowired
@@ -53,6 +57,7 @@ public class MonitoriaResource implements MonitoriaController {
     // }
 
     @Override
+    @Operation(summary = "Create a new monitoria", description = "Create a new monitoria")
     public ResponseEntity<CreateMonitoriaOut> create(CreateMonitoriaIn in) {
         // parser
         Monitoria monitoria = MonitoriaParser.to(in);
@@ -69,6 +74,7 @@ public class MonitoriaResource implements MonitoriaController {
     }
 
     @Override
+    @Operation(summary = "Get monitoria by id", description = "Get monitoria by id")
     public ResponseEntity<CreateMonitoriaOut> get(String id) {
         Monitoria monitoria = monitoriaService.read(id);
         if (monitoria == null) {
@@ -79,6 +85,7 @@ public class MonitoriaResource implements MonitoriaController {
 
 
     @Override
+    @Operation(summary = "Get monitorias by departamento", description = "Get monitorias by departamento")
     public ResponseEntity<List<CreateMonitoriaOut>> getByDepartamento(String id) {
        // lista de aulas por departamento
         List<Monitoria> monitorias = monitoriaService.readByDepartamento(id);

@@ -13,6 +13,14 @@ spring:
     properties:
       hibernate:
         default_schema: monitoria
+
+  springdoc:
+    api-docs:
+      path: /monitorias/v3/api-docs
+    swagger-ui:
+      path: /monitorias/swagger-ui.html
+
+
 management:
   endpoints:
     web:
