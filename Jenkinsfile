@@ -8,7 +8,7 @@ pipeline{
         }
         stage('Build Interface'){
             steps{
-                build job: 'store.monitoria', wait: true
+                build job: 'classroom.monitoria', wait: true
             }
         }
 
