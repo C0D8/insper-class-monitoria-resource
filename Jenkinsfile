@@ -4,6 +4,13 @@ pipeline {
         K8S_PORT = 53860
     }
     stages {
+
+        stage('Build Account') {
+            steps {
+                build job: 'classroom.monitoria', wait: true
+            }
+        }
+
         stage('Build') { 
             steps {
                 sh 'mvn clean package'
