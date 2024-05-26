@@ -1,5 +1,6 @@
 package insper.classroom.monitoria;
 
+
 // import java.nio.charset.StandardCharsets;
 // import java.security.MessageDigest;
 // import java.security.NoSuchAlgorithmException;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.cache.annotation.Cacheable;
 
 import lombok.NonNull;
 
@@ -24,6 +26,7 @@ public class MonitoriaService {
         return monitoriaRepository.save(new MonitoriaModel(in)).to();
     }
 
+    @Cacheable(value = "monitorias", key = "#id", unless = "#result == null")
     public Monitoria read(@NonNull String id) {
         return monitoriaRepository.findById(id).map(MonitoriaModel::to).orElse(null);
     }
