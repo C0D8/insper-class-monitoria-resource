@@ -13,6 +13,9 @@ spring:
     properties:
       hibernate:
         default_schema: monitoria
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
 
 springdoc:
   api-docs:
