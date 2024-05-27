@@ -12,25 +12,41 @@ import java.util.stream.Collectors;
 
 import lombok.NonNull;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @Service
 public class MonitoriaService {
 
     @Autowired
     private MonitoriaRepository monitoriaRepository;
 
+    @CircuitBreaker(name = "monitoriaService", fallbackMethod = "fallbackMonitoriaCreate")
     public Monitoria create(Monitoria in) {
         // in.hash(calculateHash(in.password()));
         // in.password(null);
         return monitoriaRepository.save(new MonitoriaModel(in)).to();
     }
 
+    public Monitoria fallbackMonitoriaCreate(Monitoria in, Throwable t) {
+        throw new RuntimeException("Failed to create monitoria", t);
+    }
+
+    @CircuitBreaker(name = "monitoriaService", fallbackMethod = "fallbackMonitoriaRead")
     public Monitoria read(@NonNull String id) {
         return monitoriaRepository.findById(id).map(MonitoriaModel::to).orElse(null);
     }
 
+    public Monitoria fallbackMonitoriaRead(String id, Throwable t) {
+        throw new RuntimeException("Failed to read monitoria", t);
+    }
 
+    @CircuitBreaker(name = "monitoriaService", fallbackMethod = "fallbackMonitoriaReadByDepartamento")
     public List<Monitoria> readByDepartamento(@NonNull String id_departamento) {
         return monitoriaRepository.findByDepartamento(id_departamento).stream().map(MonitoriaModel::to).collect(Collectors.toList());
+    }
+
+    public List<Monitoria> fallbackMonitoriaReadByDepartamento(String id_departamento, Throwable t) {
+        throw new RuntimeException("Failed to read monitoria by departamento", t);
     }
 
     // public Account read(@NonNull String id) {
